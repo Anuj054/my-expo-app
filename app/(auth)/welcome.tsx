@@ -1,4 +1,4 @@
-import CustomButton from 'components/customButton';
+import CustomButton from '../../components/CustomButton';
 import { onboarding } from '../../constants/index';
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
