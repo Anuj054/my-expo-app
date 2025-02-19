@@ -10,7 +10,7 @@ npm-debug.*
 *.orig.*
 web-build/
 
-.env
+
 
 
 ios
@@ -26,3 +26,4 @@ android
 
 expo-env.d.ts
 # @end expo-cli
+.env
