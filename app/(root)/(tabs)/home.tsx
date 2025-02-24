@@ -4,10 +4,11 @@ import { icons, images } from '../../../constants'
 import * as Location from 'expo-location';
 import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import GoogleTextInPut from 'components/GoogleTextInput'
+import GoogleTextInput from 'components/GoogleTextInput'
 import Map from 'components/Map'
 import { useLocationStore } from 'store'
 import { useEffect, useState } from 'react'
+import { router } from 'expo-router';
 
 const recentRides = [
   {
@@ -108,13 +109,16 @@ const recentRides = [
   }
 ]
 export default function Page() {
-  const { setUserLocation, SetDestinationLocation } = useLocationStore()
+  const { setUserLocation, setDestinationLocation } = useLocationStore()
   const { user } = useUser();
   const loading = true;
   const [hasPermissions, setHasPermissions] = useState(false);
 
   const handleSignout = () => { };
-  const handleDestinationPress = () => { };
+  const handleDestinationPress = (location: { latitude: number, longitude: number, address: string }) => {
+    setDestinationLocation(location);
+    router.push('/(root)/find-ride')
+  };
   useEffect(() => {
     const requestLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -170,7 +174,7 @@ export default function Page() {
                 <Image source={icons.out} className='w-4 h-4' />
               </TouchableOpacity>
             </View>
-            <GoogleTextInPut
+            <GoogleTextInput
               icon={icons.search}
               containerStyle="bg-white shadow-md shadow-neutral-300"
               handlePress={handleDestinationPress}
